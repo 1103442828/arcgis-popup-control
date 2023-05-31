@@ -1,8 +1,8 @@
 class PopupControl {
   options = {
-    include: [], // 包含点击检测的图层数组 default: []
-    exclude: [], // 排除点击检测的图层数组 default: []
-    emptyClose: false, // 点击空白处自动关闭 default: true
+    include: undefined, // 包含点击检测的图层数组 default: undefined
+    exclude: undefined, // 排除点击检测的图层数组 default: undefined
+    emptyClose: true, // 点击空白处自动关闭 default: true
     dragCloseType: 'hide', // 地图移动时自动隐藏 'close' | 'hide' | 'never'  default: hide
     positionType: 'geometry', // 'click' | 'geometry' default: geometry
     goto: false, // 是否开启view.goto default: false
@@ -93,8 +93,8 @@ class PopupControl {
   #onMapClick = (e) => {
     // include: 在包含的图层内做碰撞检查
     this.view.hitTest(e, {
-      include: this.options.include ?? [],
-      exclude: this.options.exclude ?? []
+      include: this.options.include,
+      exclude: this.options.exclude
     }).then(({
       results
     }) => {
@@ -113,7 +113,13 @@ class PopupControl {
             this.#clickPointCache = e.mapPoint
             break;
           default:
-            this.#clickPointCache = geometry.type === 'point' ? geometry : geometry.extent ? geometry.extent.center : e.mapPoint
+            if (geometry) {
+              this.#clickPointCache =  geometry?.type === 'point' ? geometry : geometry.extent ? geometry.extent.center : e.mapPoint
+            } else {
+              this.options.emptyClose && this.#handleClose()
+              this.options.emptyClose && this.#clear()
+              return
+            }
             break;
         }
 
@@ -129,7 +135,6 @@ class PopupControl {
           this.#updatePopup(this.#clickPointCache)
         }
       } else {
-
         this.options.emptyClose && this.#handleClose()
         this.options.emptyClose && this.#clear()
       }
