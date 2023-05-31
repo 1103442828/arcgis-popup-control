@@ -1,0 +1,8 @@
+{
+  "name": "npm-arcgis-popup-control",
+  "version": "1.0.0",
+  "description": "自定义arcgis popup与控制",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
+}
