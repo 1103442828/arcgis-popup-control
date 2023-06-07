@@ -81,7 +81,7 @@ Type: `Boolean` Default: `true`
 
 #### dragCloseType
 
-Type: `Sting` Enum: `close` | `hide` | `never` Default: `'hide'`
+Type: `Sting` Enum: `'close'` | `'hide'` | `'never'` Default: `'hide'`
 
 地图移动时弹窗动作
 
@@ -91,7 +91,7 @@ Type: `Sting` Enum: `close` | `hide` | `never` Default: `'hide'`
 
 #### positionType
 
-Type: `Sting` Enum: `click` | `geometry`  Default: `'geometry'`
+Type: `Sting` Enum: `'click'` | `'geometry'`  Default: `'geometry'`
 
 定位坐标来源
 
