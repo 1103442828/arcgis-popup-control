@@ -13,102 +13,63 @@
 
 ## Usage
 
-使用示例:
+Vue3使用示例:
 
+核心代码
 ```js
-import PopupControl from 'arcgis-popup-control'
+<template>
+  <Map>
+    <MyPopup v-show="popupVisible" :style="{ position: 'absolute', top: popupPosition.top, left: popupPosition.left }" />
+  </Map>
+</template>
 
-// PopupControl 的部分配置参数
-const options = {
-    // 强制性必填
-  view, 
-    // open的回调返回 { left: 100, top: 100, attributes: {} } 结构的对象
-  open: (obj) => { 
-    // 更新定位并打开弹窗等逻辑
-  },
-  close: () => {
-    // popupVisible = false等一些操作逻辑
+<script setup>
+  import { reactive, ref } from 'vue';
+  import PopupControl from 'arcgis-popup-control'
+  
+  const popupPosition = reactive({left: '0px', top: '0px'})
+  let popupVisible = ref(false)
+  
+  // PopupControl 的部分配置参数
+  const options = {
+      // 强制性必填
+    view, 
+      // open的回调返回 { left: 100, top: 100, attributes: {} } 结构的对象
+    open: (obj) => { 
+      // 更新定位并打开弹窗等逻辑
+      popupPosition.left = obj.left + 'px'
+      popupPosition.top = obj.top + 'px'
+      popupVisible.value = true
+    },
+    close: () => {
+      // popupVisible = false等一些操作逻辑
+      popupVisible.value = false
+    }
   }
-}
-
-// 创建 PopupControl
-const popupControl = new PopupControl(options)
+  
+  // 创建 PopupControl
+  const popupControl = new PopupControl(options)
+</script>
 ```
 
-## API
+## Options 参数
+| 参数      | 说明    | 类型      | 可选值       | 默认值   |
+|---------- |-------- |---------- |-------------  |-------- |
+| view | View实例 | View | 必填 | - |
+| open | 打开的回调方法, 接收{ left: 100, top: 100, attributes: {} } 结构的对象 | Function | - | - |
+| close | 关闭的回调方法 | Function | - | - |
+| include | 要包含在hitTest中的图层和图形列表。如果未指定include，则将包括所有图层和图形 | 参照[ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest) | - | undefined |
+| exclude | 要从hitTest中排除的图层和图形列表。如果未指定exclude，则不排除任何图层或图形。 | 参照[ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)  | - | undefined |
+| emptyClose | 点击空白处弹窗是否自动关闭 | Boolean | false | true |
+| dragCloseType | 地图移动时弹窗动作 'close': 关闭弹窗、'hide': 暂时隐藏,停止移动后显示、'never': 不关闭 | Sting | 'close' 'hide' 'never' | 'hide' |
+| positionType | 定位坐标来源, 'click': 点击位置的坐标, 'geometry': Graphic geometry的中心点 | Sting | 'click' | 'geometry' |
+| goto | 是否开启view\.goto | Boolean | true | false |
+| transition | goTo持续时长（毫秒） | Number | - | 800 |
 
-### PopupControl(options)
-
-### Options
-
-#### view
-
-Type: `View` Required
-
-arcgis View 实例对象
-
-#### open
-
-Type: `Function` Default: `undefined`
-
-打开的处理方法,传入 { left: 100, top: 100, attributes: {} } 结构的对象,left top是距屏幕左和上的距离，attributes为graphic的属性
-
-#### close
-
-Type: `Function` Default: `undefined`
-
-关闭的处理方法
-
-#### include
-
-Type: `HitTestItem[] | Collection<HitTestItem> | Layer | Graphic` Default: `undefined`
-
-要包含在hitTest中的图层和图形列表。如果未指定include，则将包括所有图层和图形
-[参照ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)
-
-#### exclude
-
-Type: `HitTestItem[] | Collection<HitTestItem> | Layer | Graphic` Default: `undefined`
-
-要从hitTest中排除的图层和图形列表。如果未指定exclude，则不排除任何图层或图形。
-[参照ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)
-
-#### emptyClose
-
-Type: `Boolean` Default: `true`
-
-点击空白处弹窗自动关闭
-
-#### dragCloseType
-
-Type: `Sting` Enum: `'close'` | `'hide'` | `'never'` Default: `'hide'`
-
-地图移动时弹窗动作
-
-*   `'close'`: 关闭弹窗
-*   `'hide'`: 暂时隐藏,停止移动后显示
-*   `'never'`: 不关闭
-
-#### positionType
-
-Type: `Sting` Enum: `'click'` | `'geometry'`  Default: `'geometry'`
-
-定位坐标来源
-
-*   `'click'`: 点击位置的坐标
-*   `'geometry'`: Graphic geometry的中心点
-
-#### goto
-
-Type: `Boolean`  Default: `false`
-
-是否开启view\.goto
-
-#### transition
-
-Type: `Number`  Default: `800`
-
-goTo持续时长（毫秒） default: 800
+### 方法
+| 方法名 | 说明 | 类型      | 参数 |
+| ---- | ---- | ---- | ---- | 
+| destroy | 销毁方法 | -  |- |
 
 ## Related
 

@@ -1,6 +1,6 @@
 {
   "name": "arcgis-popup-control",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "自定义arcgis popup与控制",
   "main": "index.js",
