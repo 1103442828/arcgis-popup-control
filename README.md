@@ -2,6 +2,8 @@
 
 基于ArcGis For JavaScript 4.x的自定义弹窗控制
 
+![20230531\_155823.gif](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4eaf838088a04ff48a6911386ee262d9~tplv-k3u1fbpfcp-watermark.image?)
+
 ## Features
 *  纯JS实现，兼容性强
 
