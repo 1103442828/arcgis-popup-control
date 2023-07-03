@@ -63,7 +63,7 @@ Vue3使用示例:
 | include | 要包含在hitTest中的图层和图形列表。如果未指定include，则将包括所有图层和图形 | 参照[ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest) | - | undefined |
 | exclude | 要从hitTest中排除的图层和图形列表。如果未指定exclude，则不排除任何图层或图形。 | 参照[ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)  | - | undefined |
 | emptyClose | 点击空白处弹窗是否自动关闭 | Boolean | false | true |
-| dragCloseType | 地图移动时弹窗动作 'close': 关闭弹窗、'hide': 暂时隐藏,停止移动后显示、'never': 不关闭 | Sting | 'close' 'hide' 'never' | 'hide' |
+| dragCloseType | 地图移动时弹窗动作 'close': 关闭弹窗、'hide': 暂时隐藏,停止移动后显示、'never': 不关闭 | Sting | 'close'  'never' | 'hide' |
 | positionType | 定位坐标来源, 'click': 点击位置的坐标, 'geometry': Graphic geometry的中心点 | Sting | 'click' | 'geometry' |
 | goto | 是否开启view\.goto | Boolean | true | false |
 | transition | goTo持续时长（毫秒） | Number | - | 800 |
